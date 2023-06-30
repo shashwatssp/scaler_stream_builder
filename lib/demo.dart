@@ -41,26 +41,7 @@ class _DemoState extends State<Demo> {
     Timer.periodic(Duration(seconds: 1), (Timer timer) {
       counter++;
       controller.add(counter);
-
       if (counter == 5) {
-        controller.close();
-        timer.cancel();
-      }
-    });
-
-    return controller.stream;
-  }
-
-  Stream<String> createStringStream() {
-    final StreamController<String> controller = StreamController<String>();
-
-    List<String> dataList = ['Apple', 'Banana', 'Orange', 'Mango'];
-    int index = 0;
-    Timer.periodic(Duration(seconds: 2), (Timer timer) {
-      if (index < dataList.length) {
-        controller.add(dataList[index]);
-        index++;
-      } else {
         controller.close();
         timer.cancel();
       }
@@ -73,7 +54,6 @@ class _DemoState extends State<Demo> {
     final StreamController<int> controller = StreamController<int>();
 
     List<int> dataList = [1, 2, 3, 4, 5];
-
     for (int data in dataList) {
       if (data % 2 == 0) {
         controller.add(data);
@@ -81,13 +61,11 @@ class _DemoState extends State<Demo> {
     }
 
     controller.close();
-
     return controller.stream;
   }
 
   Stream<String> createErrorStream() {
     final StreamController<String> controller = StreamController<String>();
-
     Timer(const Duration(seconds: 1), () {
       controller.addError('Oops! An error occurred.');
     });
